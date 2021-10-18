@@ -1,40 +1,46 @@
 #bear {
-    position: absolute;
-    left: 100px;
-    /*top: 240px;*/
-    width: 100px;
-    height: 160px
+  position: absolute;
+  left: 100px;
+  /*top: 240px;*/
+  width: 100px;
+  height: 160px;
 }
 
 #board {
-    position: absolute;
-    height: 600px;
-    width: 1200px;
-    background-color: rgb(6, 136, 119);
-    align-content: center;
-    align-self: center;
+  position: absolute;
+  height: 600px;
+  width: 1200px;
+  background-image: linear-gradient(blue, green);
+  align-content: center;
+  align-self: center;
 }
 
 #title {
-    background-color: rgb(128, 128, 128);
-    align-content: center;
-    align-self: center;
+  background-color: rgb(128, 128, 128);
+  align-content: center;
+  align-self: center;
 }
 
 #scores {
-    background-color: rgb(247, 134, 241);
-    align-content: center;
-    align-self: center;
+  background-color: rgb(247, 134, 241);
+  align-content: center;
+  align-self: center;
 }
 
 .location {
-    color: green;
+  color: green;
 }
 
 #hits {
-    color: red;
+  color: red;
 }
 
 #duration {
-    color: blue;
+  color: blue;
+}
+
+.gameOverText {
+  color: rgb(255, 215, 0);
+  font-size: 300%;
+  text-shadow: 5px 5px 10px rgb(200, 0, 0);
 }
