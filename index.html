@@ -8,6 +8,7 @@
     <script src="game.js">
       var bear;
       var bees;
+      var updateTimer;
     </script>
     <noscript>
       Warning - JavaScript is Disabled. For full functionality of this page, it
@@ -38,6 +39,11 @@
           onchange="makeBees();"
         />
         bees!
+      </p>
+      <p>
+        These evil buzzing fiends move at a speed of
+        <input type="text" id="speedBees" value="10" size="1" />
+        pixels per movement!
       </p>
       <h2>Press left, right, up, down keys to move Brian!</h2>
     </div>

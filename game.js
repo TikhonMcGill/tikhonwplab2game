@@ -125,7 +125,6 @@ class Bee {
 }
 
 function makeBees() {
-  console.log("Attempting to create bees...");
   //get number of bees specified by the user
   let nbBees = document.getElementById("nbBees").value;
   nbBees = Number(nbBees); //try converting the content of the input to a number
@@ -146,6 +145,27 @@ function makeBees() {
   }
 }
 
+function moveBees() {
+  //get speed input field value
+  let speed = document.getElementById("speedBees").value;
+  //move each bee to a random location
+  for (let i = 0; i < bees.length; i++) {
+    let dx = getRandomInt(2 * speed) - speed;
+    let dy = getRandomInt(2 * speed) - speed;
+    bees[i].move(dx, dy);
+  }
+}
+
+function updateBees() {
+  // update loop for game
+  //move the bees randomly
+  moveBees();
+  //use a fixed update period
+  let period = 10; //modify this to control refresh period
+  //update the timer for the next move
+  updateTimer = setTimeout("updateBees()", period);
+}
+
 function getRandomInt(max) {
   //Math.random returns a random float between 0 and 1
   //Multiply this random number by max and floor it, and you get a random integer
@@ -161,4 +181,6 @@ function start() {
   bees = new Array();
   //create bees
   makeBees();
+  //initial call to updateBees()
+  updateBees();
 }
