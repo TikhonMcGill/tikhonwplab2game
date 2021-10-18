@@ -167,6 +167,10 @@ function addBee() {
 
 function moveBees() {
   if (lastStingTime) {
+    if (getRandomInt(100) === 1) {
+      //With a 1 in 100 chance, play the buzz sound
+      playBeeBuzzSound();
+    }
     //get speed input field value
     let speed = document.getElementById("speedBees").value;
     //move each bee to a random location
@@ -235,6 +239,7 @@ function isHit(defender, offender) {
     let score = hits.innerHTML;
     score = Number(score) + 1; //increment the score
     hits.innerHTML = score; //display the new score
+    playBearHurtSound();
 
     //If the lastStingTime has been defined(i.e. the bear moved)
     if (lastStingTime) {
@@ -278,6 +283,9 @@ function start() {
 
   bear = new Bear();
 
+  bearSound = new Audio("sounds/bearhurt.mp3");
+  beeSound = new Audio("sounds/beebuzz.mp3");
+
   // Add an event listener to the keypress event.
   document.addEventListener("keydown", moveBear, false);
 
@@ -303,6 +311,18 @@ function deleteBees() {
     delete bees[i];
   }
   bees = [];
+}
+
+function playBearHurtSound() {
+  if (bearSound.paused) {
+    bearSound.play();
+  }
+}
+
+function playBeeBuzzSound() {
+  if (beeSound.paused) {
+    beeSound.play();
+  }
 }
 
 function createGameOverSign() {
