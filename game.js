@@ -131,7 +131,6 @@ class Bee {
 
 function makeBees() {
   //remove all previous bees, if any
-  console.log("Called makebee");
   if (bees.length > 0) {
     deleteBees();
   }
@@ -153,6 +152,17 @@ function makeBees() {
     bees.push(bee); //add the bee object to the bees array
     i++;
   }
+}
+
+function addBee() {
+  //get number of bees specified by the user
+  var beeCountHolder = document.getElementById("nbBees");
+  beeCountHolder.value = Number(beeCountHolder.value) + 1;
+
+  //create bee
+  var bee = new Bee(beeCountHolder.value); //create object and its IMG element
+  bee.display(); //display the bee
+  bees.push(bee); //add the bee object to the bees array
 }
 
 function moveBees() {
@@ -256,7 +266,9 @@ function start() {
   lastStingTime = undefined;
   document.getElementById("hits").innerHTML = 0; //Set stings to 0
   document.getElementById("duration").innerHTML = 0; //Set best duration to 0
-  document.getElementById("restartButton").style.display = "none";
+
+  document.getElementById("restartButton").style.display = "none"; //Hide restart button
+  document.getElementById("addBeeButton").style.display = "block"; //Show add Bee button
 
   //hide the game over text elements and the restart button
   let gameOverTexts = document.getElementsByClassName("gameOverText");
@@ -327,4 +339,5 @@ function createGameOverSign() {
   gameOverTexts[0].style.display = "block";
   gameOverTexts[1].style.display = "block";
   document.getElementById("restartButton").style.display = "block";
+  document.getElementById("addBeeButton").style.display = "none"; //Hide add bee button
 }
