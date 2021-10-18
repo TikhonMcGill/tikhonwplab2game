@@ -318,13 +318,13 @@ function deleteBees() {
 }
 
 function playBearHurtSound() {
-  if (bearSound.paused) {
+  if (bearSound.paused && !document.getElementById("playSound").checked) {
     bearSound.play();
   }
 }
 
 function playBeeBuzzSound() {
-  if (beeSound.paused) {
+  if (beeSound.paused && !document.getElementById("playSound").checked) {
     beeSound.play();
   }
 }
