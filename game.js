@@ -1,3 +1,7 @@
+var bear;
+
+start();
+
 function Bear() {
   this.dBear = 100;
   this.htmlElement = document.getElementById("bear");
@@ -16,7 +20,32 @@ function Bear() {
   };
 }
 
+// Handle keyboad events
+// to move the bear
+function moveBear(e) {
+  //codes of the four keys
+  const KEYUP = 38;
+  const KEYDOWN = 40;
+  const KEYLEFT = 37;
+  const KEYRIGHT = 39;
+  if (e.keyCode === KEYRIGHT) {
+    bear.move(1, 0);
+  } // right key
+  if (e.keyCode === KEYLEFT) {
+    bear.move(-1, 0);
+  } // left key
+  if (e.keyCode === KEYUP) {
+    bear.move(0, -1);
+  } // up key
+  if (e.keyCode === KEYDOWN) {
+    bear.move(0, 1);
+  } // down key
+}
+
 function start() {
   //create bear
   bear = new Bear();
+
+  // Add an event listener to the keypress event.
+  document.addEventListener("keydown", moveBear, false);
 }
