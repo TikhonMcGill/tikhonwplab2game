@@ -40,6 +40,11 @@ function Bear() {
 // to move the bear
 function moveBear(e) {
   //codes of the four keys
+  duration = document.getElementById("duration");
+  let longestDuration = Number(duration.innerHTML);
+  if (longestDuration === 0) {
+    lastStingTime = new Date();
+  }
   const KEYUP = 38;
   const KEYDOWN = 40;
   const KEYLEFT = 37;
@@ -213,6 +218,22 @@ function isHit(defender, offender) {
     let score = hits.innerHTML;
     score = Number(score) + 1; //increment the score
     hits.innerHTML = score; //display the new score
+
+    //If the lastStingTime has been initialized(i.e. the bear moved)
+    if (lastStingTime) {
+      //calculate longest duration
+      duration = document.getElementById("duration");
+      let newStingTime = new Date();
+      let thisDuration = newStingTime - lastStingTime;
+      lastStingTime = newStingTime;
+      let longestDuration = Number(duration.innerHTML);
+      if (longestDuration === 0) {
+        longestDuration = thisDuration;
+      } else {
+        if (longestDuration < thisDuration) longestDuration = thisDuration;
+      }
+      duration.innerHTML = longestDuration;
+    }
   }
 }
 
