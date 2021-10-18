@@ -32,7 +32,11 @@ function Bear() {
   };
 
   this.setSpeed = function (speedToSet) {
-    this.dBear = speedToSet;
+    if (isNaN(speedToSet)) {
+      window.alert("Invalid bear speed!");
+    } else {
+      this.dBear = speedToSet;
+    }
   };
 }
 
