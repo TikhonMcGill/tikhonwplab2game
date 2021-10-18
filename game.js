@@ -153,6 +153,7 @@ function moveBees() {
     let dx = getRandomInt(2 * speed) - speed;
     let dy = getRandomInt(2 * speed) - speed;
     bees[i].move(dx, dy);
+    isHit(bees[i], bear); //we add this to count stings
   }
 }
 
@@ -163,7 +164,56 @@ function updateBees() {
   //use a fixed update period
   let period = document.getElementById("beePeriod").value; //modify this to control refresh period
   //update the timer for the next move
-  updateTimer = setTimeout("updateBees()", period);
+  let stings = hits.innerHTML;
+  if (stings >= 1000) {
+    updateTimer = clearTimeout();
+    deleteBees();
+    createGameOverSign();
+  } else {
+    updateTimer = setTimeout("updateBees()", period);
+  }
+}
+
+function overlap(element1, element2) {
+  //consider the two rectangles wrapping the two elements
+  //rectangle of the first element
+  var left1 = element1.htmlElement.offsetLeft;
+  var top1 = element1.htmlElement.offsetTop;
+  var right1 =
+    element1.htmlElement.offsetLeft + element1.htmlElement.offsetWidth;
+  var bottom1 =
+    element1.htmlElement.offsetTop + element1.htmlElement.offsetHeight;
+  //rectangle of the second element
+  var left2 = element2.htmlElement.offsetLeft; //e2x
+  var top2 = element2.htmlElement.offsetTop; //e2y
+  var right2 =
+    element2.htmlElement.offsetLeft + element2.htmlElement.offsetWidth;
+  var bottom2 =
+    element2.htmlElement.offsetTop + element2.htmlElement.offsetHeight;
+  //calculate the intersection of the two rectangles
+  var x_intersect = Math.max(
+    0,
+    Math.min(right1, right2) - Math.max(left1, left2)
+  );
+  var y_intersect = Math.max(
+    0,
+    Math.min(bottom1, bottom2) - Math.max(top1, top2)
+  );
+  var intersectArea = x_intersect * y_intersect;
+  //if intersection is nil no hit
+  if (intersectArea === 0 || isNaN(intersectArea)) {
+    return false;
+  }
+  return true;
+}
+
+function isHit(defender, offender) {
+  if (overlap(defender, offender)) {
+    //check if the two image overlap
+    let score = hits.innerHTML;
+    score = Number(score) + 1; //increment the score
+    hits.innerHTML = score; //display the new score
+  }
 }
 
 function getRandomInt(max) {
@@ -173,6 +223,10 @@ function getRandomInt(max) {
 }
 
 function start() {
+  //hide the game over text elements
+  let gameOverTexts = document.getElementsByClassName("gameOverText");
+  gameOverTexts[0].style.display = "none";
+  gameOverTexts[1].style.display = "none";
   //create bear
   bear = new Bear();
   // Add an event listener to the keypress event.
@@ -183,4 +237,50 @@ function start() {
   makeBees();
   //initial call to updateBees()
   updateBees();
+}
+
+function randomChoice(arr) {
+  return arr[getRandomInt(arr.length)];
+}
+
+function deleteBees() {
+  for (let i = 0; i < bees.length; i++) {
+    bees[i].htmlElement.remove();
+    delete bees[i];
+  }
+}
+
+function createGameOverSign() {
+  //A set of arrays of strings
+  var exclamation = ["Darn!", "Blast!", "Drat!", "Shoot!"];
+  var comments_1 = [
+    "It seems",
+    "Looks like",
+    "Seems like",
+    "Perhaps",
+    "Unfortunately,",
+    "Tragically,"
+  ];
+  var comments_2 = ["was not", "wasn't"];
+  var comments_3 = ["sufficiently *", "* enough"];
+  var adjectives = ["fast", "good", "capable", "strong", "brave"];
+  //Generate a random "comment" to do with the game over
+  var comment =
+    randomChoice(exclamation) +
+    " " +
+    randomChoice(comments_1) +
+    " Brian " +
+    randomChoice(comments_2) +
+    " " +
+    randomChoice(comments_3).replace("*", randomChoice(adjectives)) +
+    "...";
+
+  let gameOverTexts = document.getElementsByClassName("gameOverText");
+
+  //set the comment text element to be the generated comment
+  gameOverTexts[1].innerHTML = comment;
+
+  //Make the game over-related texts visible
+  gameOverTexts[0].style.display = "block";
+  gameOverTexts[1].style.display = "block";
 }

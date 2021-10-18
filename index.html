@@ -53,8 +53,23 @@
 
       <h2>Press left, right, up, down keys to move Brian!</h2>
     </div>
-    <div id="scores"></div>
+    <div id="scores">
+      <table>
+        <tr>
+          <td>
+            <p>Stings: [<span id="hits">0</span>]</p>
+          </td>
+          <td>
+            <p>Best duration: [<span id="duration">?</span>]</p>
+          </td>
+        </tr>
+      </table>
+    </div>
     <div id="board">
+      <div>
+        <p class="gameOverText">GAME OVER!</p>
+        <p class="gameOverText">There is a comment here</p>
+      </div>
       <img src="./images/bear.gif" id="bear" alt="Brian Bear" />
     </div>
   </body>
