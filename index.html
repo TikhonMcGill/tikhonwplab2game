@@ -14,7 +14,21 @@
     </noscript>
   </head>
   <body onload="start();">
-    <div id="title"></div>
+    <div id="title">
+      <h1>Help Brian the Bear escape the Bees!</h1>
+      <p>
+        Brian moves at a speed of
+        <input
+          type="text"
+          id="bearSpeedInput"
+          value="100"
+          size="1"
+          onchange="bear.setSpeed(this.value);"
+        />
+        pixels per movement!
+      </p>
+      <h2>Press left, right, up, down keys to move Brian!</h2>
+    </div>
     <div id="scores"></div>
     <div id="board">
       <img src="./images/bear.gif" id="bear" alt="Brian Bear" />

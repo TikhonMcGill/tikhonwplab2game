@@ -34,6 +34,10 @@ function Bear() {
     if (this.y < 0) this.y = 0;
     if (this.y > h - ih) this.y = h - ih;
   };
+
+  this.setSpeed = function (speedToSet) {
+    this.dBear = speedToSet;
+  };
 }
 
 // Handle keyboad events
