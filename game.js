@@ -49,20 +49,20 @@ function moveBear(e) {
   if (longestDuration === 0) {
     lastStingTime = new Date();
   }
-  const KEYUP = 38;
-  const KEYDOWN = 40;
-  const KEYLEFT = 37;
-  const KEYRIGHT = 39;
-  if (e.keyCode === KEYRIGHT) {
+  const KEYUPS = [38, 87];
+  const KEYDOWNS = [40, 83];
+  const KEYLEFTS = [37, 65];
+  const KEYRIGHTS = [39, 68];
+  if (KEYRIGHTS.includes(e.keyCode)) {
     bear.move(1, 0);
   } // right key
-  if (e.keyCode === KEYLEFT) {
+  if (KEYLEFTS.includes(e.keyCode)) {
     bear.move(-1, 0);
   } // left key
-  if (e.keyCode === KEYUP) {
+  if (KEYUPS.includes(e.keyCode)) {
     bear.move(0, -1);
   } // up key
-  if (e.keyCode === KEYDOWN) {
+  if (KEYDOWNS.includes(e.keyCode)) {
     bear.move(0, 1);
   } // down key
 }
