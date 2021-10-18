@@ -1,7 +1,3 @@
-var bear;
-
-start();
-
 function Bear() {
   this.dBear = 100;
   this.htmlElement = document.getElementById("bear");
@@ -62,6 +58,32 @@ function moveBear(e) {
   } // down key
 }
 
+function createBeeImg(wNum) {
+  //get dimension and position of board div
+  let boardDiv = document.getElementById("board");
+  let boardDivW = boardDiv.offsetWidth;
+  let boardDivH = boardDiv.offsetHeight;
+  let boardDivX = boardDiv.offsetLeft;
+  let boardDivY = boardDiv.offsetTop;
+  //create the IMG element
+  let img = document.createElement("img");
+  img.setAttribute("src", "images/bee.gif");
+  img.setAttribute("width", "100");
+  img.setAttribute("alt", "A bee!");
+  img.setAttribute("id", "bee" + wNum);
+  img.setAttribute("class", "bee"); //set class of html tag img
+  //add the IMG element to the DOM as a child of the board div
+  img.style.position = "absolute";
+  boardDiv.appendChild(img);
+  //set initial position
+  let x = getRandomInt(boardDivW);
+  let y = getRandomInt(boardDivH);
+  img.style.left = boardDivX + x + "px";
+  img.style.top = y + "px";
+  //return the img object
+  return img;
+}
+
 class Bee {
   constructor(beeNumber) {
     //the HTML element corresponding to the IMG of the bee
@@ -102,10 +124,41 @@ class Bee {
   }
 }
 
+function makeBees() {
+  console.log("Attempting to create bees...");
+  //get number of bees specified by the user
+  let nbBees = document.getElementById("nbBees").value;
+  nbBees = Number(nbBees); //try converting the content of the input to a number
+  if (isNaN(nbBees)) {
+    //check that the input field contains a valid number
+    window.alert("Invalid number of bees");
+    return;
+  }
+  //create bees
+  let i = 1;
+  while (i <= nbBees) {
+    var num = i;
+    var bee;
+    bee = new Bee(num); //create object and its IMG element
+    bee.display(); //display the bee
+    bees.push(bee); //add the bee object to the bees array
+    i++;
+  }
+}
+
+function getRandomInt(max) {
+  //Math.random returns a random float between 0 and 1
+  //Multiply this random number by max and floor it, and you get a random integer
+  return Math.floor(Math.random() * max);
+}
+
 function start() {
   //create bear
   bear = new Bear();
-
   // Add an event listener to the keypress event.
   document.addEventListener("keydown", moveBear, false);
+  //create new array for bees
+  bees = new Array();
+  //create bees
+  makeBees();
 }

@@ -7,6 +7,7 @@
     <title>Bear'n'Bees</title>
     <script src="game.js">
       var bear;
+      var bees;
     </script>
     <noscript>
       Warning - JavaScript is Disabled. For full functionality of this page, it
@@ -26,6 +27,17 @@
           onchange="bear.setSpeed(this.value);"
         />
         pixels per movement!
+      </p>
+      <p>
+        His adventure involves
+        <input
+          type="text"
+          id="nbBees"
+          value="3"
+          size="1"
+          onchange="makeBees();"
+        />
+        bees!
       </p>
       <h2>Press left, right, up, down keys to move Brian!</h2>
     </div>
