@@ -2,13 +2,15 @@
 <html lang="en">
   <head>
     <title>Bear'n'Bees</title>
-    <script src="game.js"></script>
+    <script src="game.js">
+      var bear;
+    </script>
     <noscript>
       Warning - JavaScript is Disabled. For full functionality of this page, it
       is necessary to enable JavaScript.
     </noscript>
   </head>
-  <body>
+  <body onload="start();">
     <div id="title"></div>
     <div id="scores"></div>
     <div id="board">
