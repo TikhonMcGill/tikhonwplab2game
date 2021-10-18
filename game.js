@@ -130,7 +130,8 @@ class Bee {
 }
 
 function makeBees() {
-  //remove all previous bees
+  //remove all previous bees, if any
+  console.log("Called makebee");
   if (bees.length > 0) {
     deleteBees();
   }
@@ -155,14 +156,16 @@ function makeBees() {
 }
 
 function moveBees() {
-  //get speed input field value
-  let speed = document.getElementById("speedBees").value;
-  //move each bee to a random location
-  for (let i = 0; i < bees.length; i++) {
-    let dx = getRandomInt(2 * speed) - speed;
-    let dy = getRandomInt(2 * speed) - speed;
-    bees[i].move(dx, dy);
-    isHit(bees[i], bear); //we add this to count stings
+  if (lastStingTime) {
+    //get speed input field value
+    let speed = document.getElementById("speedBees").value;
+    //move each bee to a random location
+    for (let i = 0; i < bees.length; i++) {
+      let dx = getRandomInt(2 * speed) - speed;
+      let dy = getRandomInt(2 * speed) - speed;
+      bees[i].move(dx, dy);
+      isHit(bees[i], bear); //we add this to count stings
+    }
   }
 }
 
@@ -223,7 +226,7 @@ function isHit(defender, offender) {
     score = Number(score) + 1; //increment the score
     hits.innerHTML = score; //display the new score
 
-    //If the lastStingTime has been initialized(i.e. the bear moved)
+    //If the lastStingTime has been defined(i.e. the bear moved)
     if (lastStingTime) {
       //calculate longest duration
       duration = document.getElementById("duration");
@@ -248,16 +251,29 @@ function getRandomInt(max) {
 }
 
 function start() {
-  //hide the game over text elements
+  console.log("STARTED!");
+  updateTimer = clearTimeout();
+  lastStingTime = undefined;
+  document.getElementById("hits").innerHTML = 0; //Set stings to 0
+  document.getElementById("duration").innerHTML = 0; //Set best duration to 0
+  document.getElementById("restartButton").style.display = "none";
+
+  //hide the game over text elements and the restart button
   let gameOverTexts = document.getElementsByClassName("gameOverText");
   gameOverTexts[0].style.display = "none";
   gameOverTexts[1].style.display = "none";
-  //create bear
+  document.getElementById("restartButton").style.display = "none";
+
   bear = new Bear();
+
   // Add an event listener to the keypress event.
   document.addEventListener("keydown", moveBear, false);
-  //create new array for bees
-  bees = new Array();
+
+  //create the bees array if it hasn't been defined
+  if (typeof bees === "undefined") {
+    bees = new Array();
+  }
+  console.log(bear);
   //create bees
   makeBees();
   //initial call to updateBees()
@@ -271,6 +287,7 @@ function randomChoice(arr) {
 function deleteBees() {
   for (let i = 0; i < bees.length; i++) {
     bees[i].htmlElement.remove();
+    console.log("DELETED HTML ELEMENT!");
     delete bees[i];
   }
   bees = [];
@@ -289,7 +306,7 @@ function createGameOverSign() {
   ];
   var comments_2 = ["was not", "wasn't"];
   var comments_3 = ["sufficiently *", "* enough"];
-  var adjectives = ["fast", "good", "capable", "strong", "brave"];
+  var adjectives = ["fast", "good", "capable", "strong"];
   //Generate a random "comment" to do with the game over
   var comment =
     randomChoice(exclamation) +
@@ -306,7 +323,8 @@ function createGameOverSign() {
   //set the comment text element to be the generated comment
   gameOverTexts[1].innerHTML = comment;
 
-  //Make the game over-related texts visible
+  //Make the game over-related texts and the restart button visible
   gameOverTexts[0].style.display = "block";
   gameOverTexts[1].style.display = "block";
+  document.getElementById("restartButton").style.display = "block";
 }
