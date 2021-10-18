@@ -161,7 +161,7 @@ function updateBees() {
   //move the bees randomly
   moveBees();
   //use a fixed update period
-  let period = 10; //modify this to control refresh period
+  let period = document.getElementById("beePeriod").value; //modify this to control refresh period
   //update the timer for the next move
   updateTimer = setTimeout("updateBees()", period);
 }
