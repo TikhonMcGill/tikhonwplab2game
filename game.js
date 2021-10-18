@@ -130,6 +130,10 @@ class Bee {
 }
 
 function makeBees() {
+  //remove all previous bees
+  if (bees.length > 0) {
+    deleteBees();
+  }
   //get number of bees specified by the user
   let nbBees = document.getElementById("nbBees").value;
   nbBees = Number(nbBees); //try converting the content of the input to a number
@@ -269,6 +273,7 @@ function deleteBees() {
     bees[i].htmlElement.remove();
     delete bees[i];
   }
+  bees = [];
 }
 
 function createGameOverSign() {
